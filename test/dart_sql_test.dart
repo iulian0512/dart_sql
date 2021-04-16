@@ -1,8 +1,6 @@
 import 'package:test/test.dart';
 import 'package:dart_sql/dart_sql.dart';
 
-import '../lib/src/sql_expression.dart';
-
 void main() {
   group('SELECT Tests', () {
     test('SELECT * FROM aircraft', () {

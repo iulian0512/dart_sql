@@ -11,6 +11,7 @@ export 'src/sql_insert_query.dart';
 export 'src/sql_update_query.dart';
 export 'src/sql_join.dart';
 export 'src/sql_on.dart';
+export 'src/sql_expression.dart';
 
 abstract class SQL {
   static SQLSelectQuery select([List<String> projection]) {
