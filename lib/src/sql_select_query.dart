@@ -3,15 +3,12 @@ import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLSelectQuery extends SQLWriter {
-  SQLSelectQuery({this.projection, SQLWriter parent}) : super(parent);
-
   List<String> projection;
+  SQLSelectQuery({this.projection, SQLWriter parent}) : super(parent);
 
   SQLFrom from(String tableName) {
     return SQLFrom(tableName: tableName, parent: this);
   }
-
-  
 
   @override
   void writeTo(StringSink sink) {

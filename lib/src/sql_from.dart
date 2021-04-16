@@ -1,10 +1,11 @@
+import 'package:dart_sql/dart_sql.dart';
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_order_by.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 import 'package:dart_sql/src/sql_where_clause.dart';
 
-class SQLFrom extends SQLWriter {
-  SQLFrom({this.tableName, SQLWriter parent}) : super(parent);
+class SQLFrom extends SQLExpression {
+  SQLFrom({this.tableName, SQLWriter parent}) : super(parent: parent);
 
   String tableName;
 
@@ -14,8 +15,6 @@ class SQLFrom extends SQLWriter {
   SQLOrderBy orderBy(List<String> columns) {
     return SQLOrderBy(columns: columns, parent: this);
   }
-
-  SQLJoin join(String tableName) => SQLJoin(tableName: tableName, parent: this);
 
   @override
   void writeTo(StringSink sink) {

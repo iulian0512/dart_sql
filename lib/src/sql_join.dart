@@ -1,10 +1,9 @@
+import 'package:dart_sql/dart_sql.dart';
 import 'package:dart_sql/src/sql_on.dart';
-import 'package:dart_sql/src/sql_order_by.dart';
 import 'package:dart_sql/src/sql_writer.dart';
-import 'package:dart_sql/src/sql_where_clause.dart';
 
-class SQLJoin extends SQLWriter {
-  SQLJoin({this.tableName, SQLWriter parent}) : super(parent);
+class SQLJoin extends SQLExpression {
+  SQLJoin(this.tableName, {SQLWriter parent}) : super(parent: parent);
 
   String tableName;
 
@@ -15,5 +14,15 @@ class SQLJoin extends SQLWriter {
   @override
   void writeTo(StringSink sink) {
     sink.write('JOIN $tableName ');
+  }
+}
+
+class SQLLeftJoin extends SQLJoin {
+  SQLLeftJoin(String tableName, {SQLWriter parent})
+      : super(tableName, parent: parent);
+
+  @override
+  void writeTo(StringSink sink) {
+    sink.write('LEFT JOIN $tableName ');
   }
 }

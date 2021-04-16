@@ -1,9 +1,14 @@
+import 'package:dart_sql/src/sql_from.dart';
 import 'package:dart_sql/src/sql_join.dart';
+import 'package:dart_sql/src/sql_limit.dart';
+import 'package:dart_sql/src/sql_offset.dart';
 import 'package:dart_sql/src/sql_order_by.dart';
 import 'package:dart_sql/src/sql_select_query.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 import 'package:dart_sql/src/sql_sub_query.dart';
 import 'package:dart_sql/src/sql_where_clause.dart';
+
+enum SQLJoinType { Inner, Left, Right, Full }
 
 class SQLExpression extends SQLWriter {
   SQLExpression({this.op, this.value, SQLWriter parent}) : super(parent);
@@ -12,7 +17,19 @@ class SQLExpression extends SQLWriter {
   String op;
   dynamic value;
 
-  SQLJoin join(String tableName) => SQLJoin(tableName: tableName, parent: this);
+  SQLJoin join(String tableName, {SQLJoinType joinType = SQLJoinType.Inner}) {
+    switch (joinType) {
+      case SQLJoinType.Inner:
+        return SQLJoin(tableName, parent: this);
+      case SQLJoinType.Left:
+        return SQLLeftJoin(tableName, parent: this);
+      default:
+        throw Exception("join type $joinType not implemented");
+    }
+  }
+
+  SQLLimit limit(int norows) => SQLLimit(norows, parent: this);
+  SQLOffset offset(int offset) => SQLOffset(offset, parent: this);
 
   SQLWhereClause where([String column]) =>
       SQLWhereClause(column: column, parent: this);
