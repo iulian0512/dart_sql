@@ -9,9 +9,6 @@ class SQLFrom extends SQLExpression {
 
   String tableName;
 
-  SQLWhereClause where([String column]) =>
-      SQLWhereClause(column: column, parent: this);
-
   SQLOrderBy orderBy(List<String> columns) {
     return SQLOrderBy(columns: columns, parent: this);
   }
