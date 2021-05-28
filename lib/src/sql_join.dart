@@ -3,9 +3,11 @@ import 'package:dart_sql/src/sql_on.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLJoin extends SQLExpression {
-  SQLJoin(this.tableName, {SQLWriter parent}) : super(parent: parent);
+  SQLJoin(this.tableName, {this.alias, SQLWriter parent})
+      : super(parent: parent);
 
   String tableName;
+  String alias;
 
   SQLOnClause on(String column) {
     return SQLOnClause(column, parent: this);
@@ -13,16 +15,22 @@ class SQLJoin extends SQLExpression {
 
   @override
   void writeTo(StringSink sink) {
-    sink.write('JOIN $tableName ');
+    if (alias != null)
+      sink.write('JOIN $tableName as $alias ');
+    else
+      sink.write('JOIN $tableName ');
   }
 }
 
 class SQLLeftJoin extends SQLJoin {
-  SQLLeftJoin(String tableName, {SQLWriter parent})
-      : super(tableName, parent: parent);
+  SQLLeftJoin(String tableName, {String alias, SQLWriter parent})
+      : super(tableName, alias: alias, parent: parent);
 
   @override
   void writeTo(StringSink sink) {
-    sink.write('LEFT JOIN $tableName ');
+    if (alias != null)
+      sink.write('LEFT JOIN $tableName as $alias ');
+    else
+      sink.write('LEFT JOIN $tableName ');
   }
 }

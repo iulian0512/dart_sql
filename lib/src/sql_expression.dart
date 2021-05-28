@@ -17,12 +17,13 @@ class SQLExpression extends SQLWriter {
   String op;
   dynamic value;
 
-  SQLJoin join(String tableName, {SQLJoinType joinType = SQLJoinType.Inner}) {
+  SQLJoin join(String tableName,
+      {String alias, SQLJoinType joinType = SQLJoinType.Inner}) {
     switch (joinType) {
       case SQLJoinType.Inner:
-        return SQLJoin(tableName, parent: this);
+        return SQLJoin(tableName, alias: alias, parent: this);
       case SQLJoinType.Left:
-        return SQLLeftJoin(tableName, parent: this);
+        return SQLLeftJoin(tableName, alias: alias, parent: this);
       default:
         throw Exception("join type $joinType not implemented");
     }
