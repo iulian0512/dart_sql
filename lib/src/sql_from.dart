@@ -5,9 +5,9 @@ import 'package:dart_sql/src/sql_writer.dart';
 import 'package:dart_sql/src/sql_where_clause.dart';
 
 class SQLFrom extends SQLExpression {
-  SQLFrom({this.tableName, SQLWriter parent}) : super(parent: parent);
+  SQLFrom({this.tableNameOrExpr, SQLWriter parent}) : super(parent: parent);
 
-  String tableName;
+  String tableNameOrExpr;
 
   SQLOrderBy orderBy(List<String> columns) {
     return SQLOrderBy(columns: columns, parent: this);
@@ -15,6 +15,6 @@ class SQLFrom extends SQLExpression {
 
   @override
   void writeTo(StringSink sink) {
-    sink.write('FROM $tableName ');
+    sink.write('FROM $tableNameOrExpr ');
   }
 }

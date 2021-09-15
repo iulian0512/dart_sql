@@ -8,7 +8,7 @@ class SQLSetValues extends SQLWriter {
   Map<String, dynamic> values;
 
   SQLWhereClause where(String column) {
-    return SQLWhereClause(parent: this, column: column);
+    return SQLWhereClause(parent: this, expression: column);
   }
 
   @override

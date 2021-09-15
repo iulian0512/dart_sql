@@ -2,6 +2,7 @@ import 'package:dart_sql/src/sql_from.dart';
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_limit.dart';
 import 'package:dart_sql/src/sql_offset.dart';
+import 'package:dart_sql/src/sql_on.dart';
 import 'package:dart_sql/src/sql_order_by.dart';
 import 'package:dart_sql/src/sql_select_query.dart';
 import 'package:dart_sql/src/sql_writer.dart';
@@ -16,6 +17,20 @@ class SQLExpression extends SQLWriter {
 
   String op;
   dynamic value;
+
+  @override
+  void writeTo(StringSink sink) {
+    //assert(op != null);
+    if (op != null) {
+      sink.write(op);
+      sink.write(' ');
+    }
+
+    if (value != null) {
+      sink.write(value);
+      sink.write(' ');
+    }
+  }
 
   SQLJoin join(String tableName,
       {String alias, SQLJoinType joinType = SQLJoinType.Inner}) {
@@ -32,8 +47,8 @@ class SQLExpression extends SQLWriter {
   SQLLimit limit(int norows) => SQLLimit(norows, parent: this);
   SQLOffset offset(int offset) => SQLOffset(offset, parent: this);
 
-  SQLWhereClause where([String column]) =>
-      SQLWhereClause(column: column, parent: this);
+  SQLWhereClause where([String expression]) =>
+      SQLWhereClause(expression: expression, parent: this);
 
   SQLExpression eq(dynamic val) {
     return SQLExpression(op: '=', value: writeVal(val), parent: this);
@@ -55,21 +70,15 @@ class SQLExpression extends SQLWriter {
     return SQLExpression(op: '>=', value: writeVal(val), parent: this);
   }
 
-  SQLExpression lte(dynamic val) {
-    return SQLExpression(op: '<=', value: writeVal(val), parent: this);
-  }
+  SQLExpression lte(dynamic val) =>
+      SQLExpression(op: '<=', value: writeVal(val), parent: this);
 
-  SQLSubQuery all() {
-    return SQLSubQuery.all(this);
-  }
+  SQLSubQuery all() => SQLSubQuery.all(this);
 
-  SQLExpression and([String column]) {
-    return SQLExpression(op: 'AND', value: column, parent: this);
-  }
+  SQLExpression and([String column]) =>
+      SQLExpression(op: 'AND', value: column, parent: this);
 
-  SQLSubQuery any() {
-    return SQLSubQuery.any(this);
-  }
+  SQLSubQuery any() => SQLSubQuery.any(this);
 
   SQLExpression between(dynamic val1, dynamic val2) {
     return SQLExpression(
@@ -78,9 +87,10 @@ class SQLExpression extends SQLWriter {
         parent: this);
   }
 
-  SQLExpression exists() {
-    return SQLExpression(op: 'EXISTS', value: null, parent: this);
-  }
+  SQLExpression on(String column) => SQLOnClause(column, parent: this);
+
+  SQLExpression exists() =>
+      SQLExpression(op: 'EXISTS', value: null, parent: this);
 
   SQLExpression inList(List<dynamic> vals) {
     String val = vals.map((val) => writeVal(val)).join(', ');
@@ -106,19 +116,5 @@ class SQLExpression extends SQLWriter {
 
   SQLOrderBy orderBy(List<String> columns) {
     return SQLOrderBy(columns: columns, parent: this);
-  }
-
-  @override
-  void writeTo(StringSink sink) {
-    //assert(op != null);
-    if (op != null) {
-      sink.write(op);
-      sink.write(' ');
-    }
-
-    if (value != null) {
-      sink.write(value);
-      sink.write(' ');
-    }
   }
 }

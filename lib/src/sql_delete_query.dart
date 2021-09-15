@@ -6,11 +6,11 @@ class SQLDeleteQuery extends SQLWriter {
   SQLDeleteQuery({SQLWriter parent}) : super(parent);
 
   SQLFrom from(String tableName) {
-    return SQLFrom(tableName: tableName, parent: this);
+    return SQLFrom(tableNameOrExpr: tableName, parent: this);
   }
 
   SQLWhereClause where(String column) {
-    return SQLWhereClause(column: column, parent: this);
+    return SQLWhereClause(expression: column, parent: this);
   }
 
   @override

@@ -6,8 +6,8 @@ class SQLSelectQuery extends SQLWriter {
   List<String> projection;
   SQLSelectQuery({this.projection, SQLWriter parent}) : super(parent);
 
-  SQLFrom from(String tableName) {
-    return SQLFrom(tableName: tableName, parent: this);
+  SQLFrom from(String tableNameOrExpr) {
+    return SQLFrom(tableNameOrExpr: tableNameOrExpr, parent: this);
   }
 
   @override

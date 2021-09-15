@@ -9,9 +9,7 @@ class SQLJoin extends SQLExpression {
   String tableName;
   String alias;
 
-  SQLOnClause on(String column) {
-    return SQLOnClause(column, parent: this);
-  }
+  
 
   @override
   void writeTo(StringSink sink) {
