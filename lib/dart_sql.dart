@@ -14,7 +14,7 @@ export 'src/sql_on.dart';
 export 'src/sql_expression.dart';
 
 abstract class SQL {
-  static SQLSelectQuery select([List<String>? projection]) {
+  static SQLSelectQuery select([List<String> projection = const []]) {
     return SQLSelectQuery(projection: projection, parent: null);
   }
 

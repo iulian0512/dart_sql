@@ -30,9 +30,7 @@ class SQLInsertQuery extends SQLWriter {
     return this;
   }
 
-  SQLInto into(String tableName) {
-    return SQLInto(tableName: tableName, parent: this);
-  }
+  SQLInto into(String tableName) => SQLInto(tableName, parent: this);
 
   @override
   void writeTo(StringSink sink) {

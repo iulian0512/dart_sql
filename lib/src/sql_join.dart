@@ -1,5 +1,4 @@
 import 'package:dart_sql/dart_sql.dart';
-import 'package:dart_sql/src/sql_on.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLJoin extends SQLExpression {
@@ -8,8 +7,6 @@ class SQLJoin extends SQLExpression {
 
   String tableName;
   String? alias;
-
-  
 
   @override
   void writeTo(StringSink sink) {

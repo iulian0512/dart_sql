@@ -1,16 +1,15 @@
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLValues extends SQLWriter {
-  SQLValues({this.values, SQLWriter? parent}) : super(parent);
-
-  Map<String, dynamic>? values;
+  Map<String, dynamic> values;
+  SQLValues(this.values, {SQLWriter? parent}) : super(parent);
 
   @override
   void writeTo(StringSink sink) {
     List<String> clist = [];
     List<dynamic> vlist = [];
 
-    values!.forEach((column, value) {
+    values.forEach((column, value) {
       clist.add(column);
       vlist.add(value);
     });

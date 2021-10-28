@@ -2,6 +2,9 @@ import 'package:dart_sql/src/sql_select_query.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLSubQuery extends SQLWriter {
+  String? _prefix;
+  SQLSelectQuery? _subquery;
+
   SQLSubQuery.all(SQLWriter parent) : super(parent) {
     _prefix = "ALL ";
   }
@@ -10,12 +13,10 @@ class SQLSubQuery extends SQLWriter {
     _prefix = "ANY";
   }
 
-  String? _prefix;
-  SQLSelectQuery? _subquery;
-
-  SQLSelectQuery? select([List<dynamic>? columns]) {
-    _subquery = SQLSelectQuery(projection: columns as List<String>?, parent: this);
-    return _subquery;
+  SQLSelectQuery select([List<dynamic> columns = const []]) {
+    _subquery =
+        SQLSelectQuery(projection: columns as List<String>, parent: this);
+    return _subquery!;
   }
 
   @override

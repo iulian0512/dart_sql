@@ -1,4 +1,3 @@
-import 'package:dart_sql/src/sql_into.dart';
 import 'package:dart_sql/src/sql_set_values.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
@@ -31,9 +30,8 @@ class SQLUpdateQuery extends SQLWriter {
     return this;
   }
 
-  SQLSetValues setValues(String tableName, Map<String, dynamic> values) {
-    return SQLSetValues(tableName: tableName, values: values, parent: this);
-  }
+  SQLSetValues setValues(String tableName, Map<String, dynamic> values) =>
+      SQLSetValues(tableName, values, parent: this);
 
   @override
   void writeTo(StringSink sink) {

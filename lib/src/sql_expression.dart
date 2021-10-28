@@ -1,4 +1,3 @@
-import 'package:dart_sql/src/sql_from.dart';
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_limit.dart';
 import 'package:dart_sql/src/sql_offset.dart';
@@ -50,25 +49,20 @@ class SQLExpression extends SQLWriter {
   SQLWhereClause where([String? expression]) =>
       SQLWhereClause(expression: expression, parent: this);
 
-  SQLExpression eq(dynamic val) {
-    return SQLExpression(op: '=', value: writeVal(val), parent: this);
-  }
+  SQLExpression eq(dynamic val) =>
+      SQLExpression(op: '=', value: writeVal(val), parent: this);
 
-  SQLExpression neq(dynamic val) {
-    return SQLExpression(op: '!=', value: writeVal(val), parent: this);
-  }
+  SQLExpression neq(dynamic val) =>
+      SQLExpression(op: '!=', value: writeVal(val), parent: this);
 
-  SQLExpression gt(dynamic val) {
-    return SQLExpression(op: '>', value: writeVal(val), parent: this);
-  }
+  SQLExpression gt(dynamic val) =>
+      SQLExpression(op: '>', value: writeVal(val), parent: this);
 
-  SQLExpression lt(dynamic val) {
-    return SQLExpression(op: '<', value: writeVal(val), parent: this);
-  }
+  SQLExpression lt(dynamic val) =>
+      SQLExpression(op: '<', value: writeVal(val), parent: this);
 
-  SQLExpression gte(dynamic val) {
-    return SQLExpression(op: '>=', value: writeVal(val), parent: this);
-  }
+  SQLExpression gte(dynamic val) =>
+      SQLExpression(op: '>=', value: writeVal(val), parent: this);
 
   SQLExpression lte(dynamic val) =>
       SQLExpression(op: '<=', value: writeVal(val), parent: this);
@@ -97,24 +91,19 @@ class SQLExpression extends SQLWriter {
     return SQLExpression(op: 'IN', value: '($val)', parent: this);
   }
 
-  SQLSelectQuery inSelect([List<String>? projection]) {
+  SQLSelectQuery inSelect([List<String> projection = const []]) {
     final expr = SQLExpression(op: 'IN', parent: this);
     return SQLSelectQuery(projection: projection, parent: expr);
   }
 
-  SQLExpression like(String pattern) {
-    return SQLExpression(op: 'LIKE', value: pattern, parent: this);
-  }
+  SQLExpression like(String pattern) =>
+      SQLExpression(op: 'LIKE', value: pattern, parent: this);
 
-  SQLExpression not([String? column]) {
-    return SQLExpression(op: 'NOT', value: column, parent: this);
-  }
+  SQLExpression not([String? column]) =>
+      SQLExpression(op: 'NOT', value: column, parent: this);
 
-  SQLExpression or([String? column]) {
-    return SQLExpression(op: 'OR', value: column, parent: this);
-  }
+  SQLExpression or([String? column]) =>
+      SQLExpression(op: 'OR', value: column, parent: this);
 
-  SQLOrderBy orderBy(List<String> columns) {
-    return SQLOrderBy(columns: columns, parent: this);
-  }
+  SQLOrderBy orderBy(List<String> columns) => SQLOrderBy(columns, parent: this);
 }
