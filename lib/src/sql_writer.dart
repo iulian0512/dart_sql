@@ -1,5 +1,5 @@
 abstract class SQLWriter {
-  SQLWriter parent;
+  SQLWriter? parent;
 
   SQLWriter(this.parent);
 
@@ -14,7 +14,7 @@ abstract class SQLWriter {
 
   void _writeTo(SQLWriter writer, StringSink sink) {
     if (writer.parent != null) {
-      writer.parent._writeTo(writer.parent, sink);
+      writer.parent!._writeTo(writer.parent!, sink);
     }
     writer.writeTo(sink);
   }

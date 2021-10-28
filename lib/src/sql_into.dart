@@ -4,17 +4,17 @@ import 'package:dart_sql/src/sql_values.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLInto extends SQLWriter {
-  SQLInto({this.tableName, SQLWriter parent}) : super(parent);
+  SQLInto({this.tableName, SQLWriter? parent}) : super(parent);
 
-  String tableName;
+  String? tableName;
 
-  String asName;
+  String? asName;
 
   SQLValues values(Map<String, dynamic> values) {
     return SQLValues(values: values, parent: this);
   }
 
-  SQLSelectQuery select([List<String> projection]) {
+  SQLSelectQuery select([List<String>? projection]) {
     return SQLSelectQuery(projection: projection, parent: this);
   }
 

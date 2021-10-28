@@ -12,10 +12,10 @@ import 'package:dart_sql/src/sql_where_clause.dart';
 enum SQLJoinType { Inner, Left, Right, Full }
 
 class SQLExpression extends SQLWriter {
-  SQLExpression({this.op, this.value, SQLWriter parent}) : super(parent);
+  SQLExpression({this.op, this.value, SQLWriter? parent}) : super(parent);
   SQLExpression.ColumnReference(this.value) : super(null);
 
-  String op;
+  String? op;
   dynamic value;
 
   @override
@@ -33,7 +33,7 @@ class SQLExpression extends SQLWriter {
   }
 
   SQLJoin join(String tableName,
-      {String alias, SQLJoinType joinType = SQLJoinType.Inner}) {
+      {String? alias, SQLJoinType joinType = SQLJoinType.Inner}) {
     switch (joinType) {
       case SQLJoinType.Inner:
         return SQLJoin(tableName, alias: alias, parent: this);
@@ -47,7 +47,7 @@ class SQLExpression extends SQLWriter {
   SQLLimit limit(int norows) => SQLLimit(norows, parent: this);
   SQLOffset offset(int offset) => SQLOffset(offset, parent: this);
 
-  SQLWhereClause where([String expression]) =>
+  SQLWhereClause where([String? expression]) =>
       SQLWhereClause(expression: expression, parent: this);
 
   SQLExpression eq(dynamic val) {
@@ -75,7 +75,7 @@ class SQLExpression extends SQLWriter {
 
   SQLSubQuery all() => SQLSubQuery.all(this);
 
-  SQLExpression and([String column]) =>
+  SQLExpression and([String? column]) =>
       SQLExpression(op: 'AND', value: column, parent: this);
 
   SQLSubQuery any() => SQLSubQuery.any(this);
@@ -97,7 +97,7 @@ class SQLExpression extends SQLWriter {
     return SQLExpression(op: 'IN', value: '($val)', parent: this);
   }
 
-  SQLSelectQuery inSelect([List<String> projection]) {
+  SQLSelectQuery inSelect([List<String>? projection]) {
     final expr = SQLExpression(op: 'IN', parent: this);
     return SQLSelectQuery(projection: projection, parent: expr);
   }
@@ -106,11 +106,11 @@ class SQLExpression extends SQLWriter {
     return SQLExpression(op: 'LIKE', value: pattern, parent: this);
   }
 
-  SQLExpression not([String column]) {
+  SQLExpression not([String? column]) {
     return SQLExpression(op: 'NOT', value: column, parent: this);
   }
 
-  SQLExpression or([String column]) {
+  SQLExpression or([String? column]) {
     return SQLExpression(op: 'OR', value: column, parent: this);
   }
 

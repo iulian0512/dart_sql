@@ -5,9 +5,9 @@ import 'package:dart_sql/src/sql_writer.dart';
 import 'package:dart_sql/src/sql_where_clause.dart';
 
 class SQLFrom extends SQLExpression {
-  SQLFrom({this.tableNameOrExpr, SQLWriter parent}) : super(parent: parent);
+  SQLFrom({this.tableNameOrExpr, SQLWriter? parent}) : super(parent: parent);
 
-  String tableNameOrExpr;
+  String? tableNameOrExpr;
 
   SQLOrderBy orderBy(List<String> columns) {
     return SQLOrderBy(columns: columns, parent: this);

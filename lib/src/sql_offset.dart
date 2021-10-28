@@ -4,7 +4,7 @@ import 'package:dart_sql/src/sql_writer.dart';
 class SQLOffset extends SQLExpression {
   int offsetrows;
 
-  SQLOffset(this.offsetrows, {SQLWriter parent}) : super(parent: parent);
+  SQLOffset(this.offsetrows, {SQLWriter? parent}) : super(parent: parent);
 
   @override
   void writeTo(StringSink sink) {

@@ -2,11 +2,11 @@ import 'package:dart_sql/dart_sql.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLOrderBy extends SQLExpression {
-  SQLOrderBy({SQLWriter parent, this.columns}) : super(parent: parent);
+  SQLOrderBy({SQLWriter? parent, this.columns}) : super(parent: parent);
 
-  List<String> columns;
+  List<String>? columns;
 
-  String _suffix;
+  String? _suffix;
 
   SQLOrderBy having() {
     return this;
@@ -25,7 +25,7 @@ class SQLOrderBy extends SQLExpression {
   @override
   void writeTo(StringSink sink) {
     sink.write('ORDER BY ');
-    sink.writeAll(columns, ', ');
+    sink.writeAll(columns!, ', ');
     if (_suffix != null) {
       sink.write(' $_suffix ');
     }

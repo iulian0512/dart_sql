@@ -3,7 +3,7 @@ import 'package:dart_sql/src/sql_writer.dart';
 import 'package:dart_sql/src/sql_where_clause.dart';
 
 class SQLDeleteQuery extends SQLWriter {
-  SQLDeleteQuery({SQLWriter parent}) : super(parent);
+  SQLDeleteQuery({SQLWriter? parent}) : super(parent);
 
   SQLFrom from(String tableName) {
     return SQLFrom(tableNameOrExpr: tableName, parent: this);

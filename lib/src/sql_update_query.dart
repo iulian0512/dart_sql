@@ -5,7 +5,7 @@ import 'package:dart_sql/src/sql_writer.dart';
 class SQLUpdateQuery extends SQLWriter {
   SQLUpdateQuery() : super(null);
 
-  String _suffix;
+  String? _suffix;
   SQLUpdateQuery orReplace() {
     _suffix = 'OR REPLACE';
     return this;

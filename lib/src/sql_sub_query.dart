@@ -10,11 +10,11 @@ class SQLSubQuery extends SQLWriter {
     _prefix = "ANY";
   }
 
-  String _prefix;
-  SQLSelectQuery _subquery;
+  String? _prefix;
+  SQLSelectQuery? _subquery;
 
-  SQLSelectQuery select([List<dynamic> columns]) {
-    _subquery = SQLSelectQuery(projection: columns, parent: this);
+  SQLSelectQuery? select([List<dynamic>? columns]) {
+    _subquery = SQLSelectQuery(projection: columns as List<String>?, parent: this);
     return _subquery;
   }
 
@@ -22,7 +22,7 @@ class SQLSubQuery extends SQLWriter {
   void writeTo(StringSink sink) {
     sink.write(_prefix);
     if (_subquery != null) {
-      _subquery.writeTo(sink);
+      _subquery!.writeTo(sink);
     }
   }
 }

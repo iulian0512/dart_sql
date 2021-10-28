@@ -4,7 +4,7 @@ import 'package:dart_sql/src/sql_writer.dart';
 class SQLLimit extends SQLExpression {
   int noRows;
 
-  SQLLimit(int this.noRows, {SQLWriter parent}) : super(parent: parent);
+  SQLLimit(int this.noRows, {SQLWriter? parent}) : super(parent: parent);
 
   @override
   void writeTo(StringSink sink) {
