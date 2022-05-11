@@ -2,7 +2,7 @@ import 'package:dart_sql/src/sql_expression.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLOnClause extends SQLExpression {
-  String column;
+  final String column;
   SQLOnClause(this.column, {SQLWriter? parent}) : super(parent: parent);
 
   @override

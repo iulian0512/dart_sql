@@ -1,3 +1,5 @@
+import 'package:dart_sql/src/sql_case_when.dart';
+import 'package:dart_sql/src/sql_with.dart';
 import 'package:test/test.dart';
 import 'package:dart_sql/dart_sql.dart';
 
@@ -203,6 +205,65 @@ void main() {
           .toString();
       expect(sql,
           'SELECT * FROM aircraft JOIN colors ON colors.id = aircraft.colorid AND colors.zorder = aircraft.zorder WHERE aircraft.id = 41');
+    });
+  });
+
+  group('Union Tests', () {
+    test('select col1 from table1 union select col2 from table2', () {
+      final t1select = SQL.select(["col1"]).from("table1");
+      final t2select = SQL.select(["col2"]).from("table2");
+      final sql = t1select.union(t2select).toString();
+
+      expect(
+          sql.toUpperCase(),
+          'select col1 from table1 union select col2 from table2'
+              .toUpperCase());
+    });
+  });
+
+  group('With Tests', () {
+    test(
+        'with cte1 as (select col1 from table1), cte2 as (select col2 from table2) select * from cte1',
+        () {
+      final cte1select = SQL.select(["col1"]).from("table1");
+      final cte2select = SQL.select(["col2"]).from("table2");
+      final select = SQL.select().from("cte1");
+      final sql = SQLWithQuery({"cte1": cte1select, "cte2": cte2select}, select)
+          .toString();
+
+      expect(
+          sql.toUpperCase(),
+          'with cte1 as (select col1 from table1), cte2 as (select col2 from table2) select * from cte1'
+              .toUpperCase());
+    });
+  });
+
+  group('Case When Tests', () {
+    //with else
+    test(
+        'select case when id=1 then 1 when id=2 then 2 else 3 end as caseexpr from table',
+        () {
+      final caseexpr =
+          SQLCaseWhen("caseexpr", {"id=1": "1", "id=2": "2"}, elseExpr: "3");
+      final sql = SQL.select([caseexpr]).from("table").toString();
+
+      expect(
+          sql.toUpperCase(),
+          'select case when id=1 then 1 when id=2 then 2 else 3 end as caseexpr from table'
+              .toUpperCase());
+    });
+
+    //without else
+    test(
+        'select case when id=1 then 1 when id=2 then 2 end as caseexpr from table',
+        () {
+      final caseexpr = SQLCaseWhen("caseexpr", {"id=1": "1", "id=2": "2"});
+      final sql = SQL.select([caseexpr]).from("table").toString();
+
+      expect(
+          sql.toUpperCase(),
+          'select case when id=1 then 1 when id=2 then 2 end as caseexpr from table'
+              .toUpperCase());
     });
   });
 }

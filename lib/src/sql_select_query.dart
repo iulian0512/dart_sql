@@ -3,8 +3,10 @@ import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLSelectQuery extends SQLWriter {
   final List<String> projection;
-  SQLSelectQuery({this.projection = const [], SQLWriter? parent})
-      : super(parent);
+  SQLSelectQuery({List<Object>? projection, SQLWriter? parent})
+      : this.projection =
+            projection?.map((e) => e.toString()).toList() ?? const [],
+        super(parent);
 
   SQLFrom from(String tableNameOrExpr) =>
       SQLFrom(tableNameOrExpr, parent: this);

@@ -2,7 +2,7 @@ import 'package:dart_sql/dart_sql.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLOrderBy extends SQLExpression {
-  final List<String> columns;
+  final Iterable<String> columns;
   SQLOrderBy(this.columns, {SQLWriter? parent}) : super(parent: parent);
 
   String? _suffix;

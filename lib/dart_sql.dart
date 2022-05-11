@@ -1,5 +1,7 @@
 library dart_sql;
 
+import 'package:dart_sql/src/sql_with.dart';
+
 import 'src/sql_delete_query.dart';
 import 'src/sql_select_query.dart';
 import 'src/sql_insert_query.dart';
@@ -12,21 +14,16 @@ export 'src/sql_update_query.dart';
 export 'src/sql_join.dart';
 export 'src/sql_on.dart';
 export 'src/sql_expression.dart';
+export 'src/sql_case_when.dart';
+export 'src/sql_with.dart';
 
 abstract class SQL {
-  static SQLSelectQuery select([List<String> projection = const []]) {
-    return SQLSelectQuery(projection: projection, parent: null);
-  }
+  static SQLSelectQuery select([List<Object> projection = const []]) =>
+      SQLSelectQuery(projection: projection, parent: null);
 
-  static SQLDeleteQuery delete() {
-    return SQLDeleteQuery();
-  }
+  static SQLDeleteQuery delete() => SQLDeleteQuery();
 
-  static SQLInsertQuery insert() {
-    return SQLInsertQuery();
-  }
+  static SQLInsertQuery insert() => SQLInsertQuery();
 
-  static SQLUpdateQuery update() {
-    return SQLUpdateQuery();
-  }
+  static SQLUpdateQuery update() => SQLUpdateQuery();
 }

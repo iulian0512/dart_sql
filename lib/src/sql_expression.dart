@@ -81,6 +81,9 @@ class SQLExpression extends SQLWriter {
         parent: this);
   }
 
+  SQLExpression union(SQLExpression another) =>
+      SQLExpression(op: 'UNION', value: another, parent: this);
+
   SQLExpression on(String column) => SQLOnClause(column, parent: this);
 
   SQLExpression exists() =>
