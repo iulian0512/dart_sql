@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_limit.dart';
 import 'package:dart_sql/src/sql_offset.dart';
@@ -109,4 +111,8 @@ class SQLExpression extends SQLWriter {
       SQLExpression(op: 'OR', value: column, parent: this);
 
   SQLOrderBy orderBy(List<String> columns) => SQLOrderBy(columns, parent: this);
+
+  ///key=column name value=  asc(true)/desc(false) boolean
+  SQLOrderBy orderByIndividual(Map<String, bool> columns_individual_order) =>
+      SQLOrderBy.fromColumnMap(columns_individual_order, parent: this);
 }
