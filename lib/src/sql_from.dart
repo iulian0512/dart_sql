@@ -8,6 +8,10 @@ class SQLFrom extends SQLExpression {
 
   SQLOrderBy orderBy(List<String> columns) => SQLOrderBy(columns, parent: this);
 
+  ///key=column name value=  asc(true)/desc(false) boolean
+  SQLOrderBy orderByIdividual(Map<String, bool> columns_map) =>
+      SQLOrderBy.fromColumnMap(columns_map, parent: this);
+
   @override
   void writeTo(StringSink sink) => sink.write('FROM $tableNameOrExpr ');
 }

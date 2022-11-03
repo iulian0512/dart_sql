@@ -2,8 +2,13 @@ import 'package:dart_sql/dart_sql.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLOrderBy extends SQLExpression {
-  final Iterable<String> columns;
-  SQLOrderBy(this.columns, {SQLWriter? parent}) : super(parent: parent);
+  //key=column name value=  asc(true)/desc(false) boolean
+  final Map<String, bool> _columns;
+  SQLOrderBy(Iterable<String> columns, {SQLWriter? parent})
+      : _columns = Map.fromIterable(columns, key: (k) => k, value: (v) => true),
+        super(parent: parent);
+  SQLOrderBy.fromColumnMap(this._columns, {SQLWriter? parent})
+      : super(parent: parent);
 
   String? _suffix;
 
@@ -24,9 +29,12 @@ class SQLOrderBy extends SQLExpression {
   @override
   void writeTo(StringSink sink) {
     sink.write('ORDER BY ');
-    sink.writeAll(columns, ', ');
     if (_suffix != null) {
+      sink.writeAll(_columns.entries.map((e) => e.key), ', ');
       sink.write(' $_suffix ');
-    }
+    } else
+      sink.writeAll(
+          _columns.entries.map((e) => e.key + (e.value ? ' ASC' : ' DESC')),
+          ', ');
   }
 }

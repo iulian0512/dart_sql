@@ -1,11 +1,11 @@
 name: dart_sql
 description: A declarative front end for SQL libries like moor:ffi that enables
   you to construct SQL queries using Dart syntax.
-version: 0.0.9
+version: 0.0.10
 homepage: https://aeyrium.com
 
 environment:
-  sdk: '>=2.14.0 <3.0.0'
+  sdk: '>=2.18.1 <3.0.0'
 
 dev_dependencies:
   test: ^1.19.2
