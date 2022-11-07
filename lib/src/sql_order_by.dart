@@ -34,7 +34,7 @@ class SQLOrderBy extends SQLExpression {
       sink.write(' $_suffix ');
     } else
       sink.writeAll(
-          _columns.entries.map((e) => e.key + (e.value ? ' ASC' : ' DESC')),
+          _columns.entries.map((e) => e.key + (e.value ? ' ASC ' : ' DESC ')),
           ', ');
   }
 }

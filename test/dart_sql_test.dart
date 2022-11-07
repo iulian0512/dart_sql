@@ -15,23 +15,26 @@ void main() {
       expect(sql, 'SELECT id, model, year FROM aircraft');
     });
 
-    test('SELECT * FROM aircraft ORDER BY model', () {
+    test('SELECT * FROM aircraft ORDER BY model ASC', () {
       var sql = SQL.select().from('aircraft').orderBy(['model']).toString();
       expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC');
     });
 
-    test('SELECT * FROM aircraft ORDER BY model, year', () {
-      var sql =
-          SQL.select().from('aircraft').orderBy(['model', 'year']).toString();
-      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC, year ASC');
-    });
-
-    test('SELECT * FROM aircraft ORDER BY model DESC, year ASC', () {
+    test('SELECT * FROM aircraft ORDER BY model ASC , year ASC', () {
       var sql = SQL
           .select()
           .from('aircraft')
-          .orderByIdividual({'model': true, 'year': false}).toString();
-      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC, year DESC');
+          .orderBy(['model', 'year'])
+          .toString();
+      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC , year ASC');
+    });
+
+    test('SELECT * FROM aircraft ORDER BY model DESC , year ASC', () {
+      var sql = SQL
+          .select()
+          .from('aircraft')
+          .orderByIndividual({'model': true, 'year': false}).toString();
+      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC , year DESC');
     });
 
     test('SELECT * FROM aircraft WHERE model = "SR22" ORDER BY model', () {
