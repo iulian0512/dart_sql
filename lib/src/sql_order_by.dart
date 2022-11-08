@@ -28,13 +28,15 @@ class SQLOrderBy extends SQLExpression {
 
   @override
   void writeTo(StringSink sink) {
-    sink.write('ORDER BY ');
-    if (_suffix != null) {
-      sink.writeAll(_columns.entries.map((e) => e.key), ', ');
-      sink.write(' $_suffix ');
-    } else
-      sink.writeAll(
-          _columns.entries.map((e) => e.key + (e.value ? ' ASC ' : ' DESC ')),
-          ', ');
+    if (_columns.isNotEmpty) {
+      sink.write('ORDER BY ');
+      if (_suffix != null) {
+        sink.writeAll(_columns.entries.map((e) => e.key), ', ');
+        sink.write(' $_suffix ');
+      } else
+        sink.writeAll(
+            _columns.entries.map((e) => e.key + (e.value ? ' ASC ' : ' DESC ')),
+            ', ');
+    }
   }
 }
