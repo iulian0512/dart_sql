@@ -2,11 +2,10 @@ import 'package:dart_sql/src/sql_from.dart';
 import 'package:dart_sql/src/sql_writer.dart';
 
 class SQLSelectQuery extends SQLWriter {
-  final List<String> projection;
-  SQLSelectQuery({List<Object>? projection, SQLWriter? parent})
-      : this.projection =
-            projection?.map((e) => e.toString()).toList() ?? const [],
-        super(parent);
+  final List<Object> projection;
+  Iterable<String> get _projectionString => projection.map((e) => e.toString());
+  SQLSelectQuery({List<Object> this.projection = const [], SQLWriter? parent})
+      : super(parent);
 
   SQLFrom from(String tableNameOrExpr) =>
       SQLFrom(tableNameOrExpr, parent: this);
@@ -14,10 +13,10 @@ class SQLSelectQuery extends SQLWriter {
   @override
   void writeTo(StringSink sink) {
     sink.write('SELECT ');
-    if (projection.isEmpty) {
+    if (_projectionString.isEmpty) {
       sink.write('* ');
     } else {
-      sink.writeAll(projection, ', ');
+      sink.writeAll(_projectionString, ', ');
       sink.write(' ');
     }
   }

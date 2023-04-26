@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_limit.dart';
 import 'package:dart_sql/src/sql_offset.dart';

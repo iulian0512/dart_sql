@@ -1,5 +1,3 @@
-import 'package:dart_sql/src/sql_case_when.dart';
-import 'package:dart_sql/src/sql_with.dart';
 import 'package:test/test.dart';
 import 'package:dart_sql/dart_sql.dart';
 
@@ -21,11 +19,8 @@ void main() {
     });
 
     test('SELECT * FROM aircraft ORDER BY model ASC , year ASC', () {
-      var sql = SQL
-          .select()
-          .from('aircraft')
-          .orderBy(['model', 'year'])
-          .toString();
+      var sql =
+          SQL.select().from('aircraft').orderBy(['model', 'year']).toString();
       expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC , year ASC');
     });
 

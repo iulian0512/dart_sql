@@ -1,7 +1,5 @@
 library dart_sql;
 
-import 'package:dart_sql/src/sql_with.dart';
-
 import 'src/sql_delete_query.dart';
 import 'src/sql_select_query.dart';
 import 'src/sql_insert_query.dart';
