@@ -15,7 +15,7 @@ class SQLExpression extends SQLWriter {
   SQLExpression.ColumnReference(this.value) : super(null);
 
   String? op;
-  dynamic value;
+  Object? value;
 
   @override
   void writeTo(StringSink sink) {
