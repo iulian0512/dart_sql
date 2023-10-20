@@ -14,6 +14,7 @@ export 'src/sql_on.dart';
 export 'src/sql_expression.dart';
 export 'src/sql_case_when.dart';
 export 'src/sql_with.dart';
+export 'src/sql_column_reference.dart';
 
 abstract class SQL {
   static SQLSelectQuery select([List<Object> projection = const []]) =>

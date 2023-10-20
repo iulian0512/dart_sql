@@ -1,3 +1,4 @@
+import 'package:dart_sql/src/sql_column_reference.dart';
 import 'package:dart_sql/src/sql_join.dart';
 import 'package:dart_sql/src/sql_limit.dart';
 import 'package:dart_sql/src/sql_offset.dart';
@@ -12,7 +13,10 @@ enum SQLJoinType { Inner, Left, Right, Full }
 
 class SQLExpression extends SQLWriter {
   SQLExpression({this.op, this.value, SQLWriter? parent}) : super(parent);
-  SQLExpression.ColumnReference(this.value) : super(null);
+  factory SQLExpression.ColumnReference(Object value) =>
+      SQLColumnReference(value);
+  factory SQLExpression.SynColumnReference(Object value) =>
+      SQLSyntethicColumnReference(value);
 
   String? op;
   Object? value;
