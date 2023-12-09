@@ -4,6 +4,6 @@ class SQLColumnReference extends SQLExpression {
   SQLColumnReference(Object value) : super(value: value);
 }
 
-class SQLSyntethicColumnReference extends SQLExpression {
-  SQLSyntethicColumnReference(Object value) : super(value: value);
+class SQLSyntethicColumnReference extends SQLColumnReference {
+  SQLSyntethicColumnReference(super.value);
 }
