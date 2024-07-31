@@ -12,18 +12,16 @@ import 'package:dart_sql/src/sql_where_clause.dart';
 enum SQLJoinType { Inner, Left, Right, Full }
 
 class SQLExpression extends SQLWriter {
-  SQLExpression({this.op, this.value, SQLWriter? parent}) : super(parent);
-  factory SQLExpression.ColumnReference(Object value) =>
-      SQLColumnReference(value);
-  factory SQLExpression.SynColumnReference(Object value) =>
-      SQLSyntethicColumnReference(value);
-
   String? op;
   Object? value;
+  SQLExpression({this.op, this.value, SQLWriter? parent}) : super(parent);
+  factory SQLExpression.ColumnReference(Object value, {String? alias}) =>
+      SQLColumnReference(value, alias: alias);
+  factory SQLExpression.SynColumnReference(Object value, String? alias) =>
+      SQLSyntethicColumnReference(value, alias: alias);
 
   @override
   void writeTo(StringSink sink) {
-    //assert(op != null);
     if (op != null) {
       sink.write(op);
       sink.write(' ');

@@ -273,4 +273,15 @@ void main() {
               .toUpperCase());
     });
   });
+
+  group('Misc', () {
+    test('column reference', () {
+      var sql = SQL
+          .select([SQLColumnReference("make", alias: "make_alias123")])
+          .from('aircraft')
+          .toString();
+      expect(sql.toUpperCase(),
+          'SELECT make as make_alias123 FROM aircraft'.toUpperCase());
+    });
+  });
 }
