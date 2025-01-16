@@ -17,8 +17,9 @@ class SQLExpression extends SQLWriter {
   SQLExpression({this.op, this.value, SQLWriter? parent}) : super(parent);
   factory SQLExpression.ColumnReference(Object value, {String? alias}) =>
       SQLColumnReference(value, alias: alias);
-  factory SQLExpression.SynColumnReference(Object value, {String? alias}) =>
-      SQLSyntethicColumnReference(value, alias: alias);
+  factory SQLExpression.SyntheticColumnReference(Object value,
+          {String? alias}) =>
+      SQLSyntheticColumnReference(value, alias: alias);
 
   @override
   void writeTo(StringSink sink) {
