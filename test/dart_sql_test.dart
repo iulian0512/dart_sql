@@ -4,36 +4,58 @@ import 'package:dart_sql/dart_sql.dart';
 void main() {
   group('SELECT Tests', () {
     test('SELECT * FROM aircraft', () {
-      var sql = SQL.select([]).from('aircraft').toString();
+      final sql = SQL.select([]).from('aircraft').toString();
       expect(sql, 'SELECT * FROM aircraft');
     });
 
     test('SELECT id, model, year FROM aircraft', () {
-      var sql = SQL.select(['id', 'model', 'year']).from('aircraft').toString();
+      final sql =
+          SQL.select(['id', 'model', 'year']).from('aircraft').toString();
       expect(sql, 'SELECT id, model, year FROM aircraft');
     });
 
     test('SELECT * FROM aircraft ORDER BY model ASC', () {
-      var sql = SQL.select().from('aircraft').orderBy(['model']).toString();
+      final sql = SQL.select().from('aircraft').orderBy(['model']).toString();
       expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC');
     });
 
-    test('SELECT * FROM aircraft ORDER BY model ASC , year ASC', () {
-      var sql =
-          SQL.select().from('aircraft').orderBy(['model', 'year']).toString();
-      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC , year ASC');
-    });
-
-    test('SELECT * FROM aircraft ORDER BY model DESC , year ASC', () {
-      var sql = SQL
+    test('SELECT * FROM aircraft ORDER BY model, year ASC LIMIT 5', () {
+      final sql = SQL
           .select()
           .from('aircraft')
-          .orderByIndividual({'model': true, 'year': false}).toString();
-      expect(sql, 'SELECT * FROM aircraft ORDER BY model ASC , year DESC');
+          .orderBy(['model', 'year'])
+          .limit(5)
+          .toString();
+      expect(sql, 'SELECT * FROM aircraft ORDER BY model, year ASC LIMIT 5');
     });
 
-    test('SELECT * FROM aircraft WHERE model = "SR22" ORDER BY model', () {
-      var sql = SQL
+    test('SELECT * FROM aircraft ORDER BY model DESC, year ASC LIMIT 5', () {
+      final sql = SQL
+          .select()
+          .from('aircraft')
+          .orderByIndividual({'model': true, 'year': false})
+          .limit(5)
+          .toString();
+      expect(
+          sql, 'SELECT * FROM aircraft ORDER BY model ASC, year DESC LIMIT 5');
+    });
+
+    test(
+        'SELECT * FROM aircraft ORDER BY model ASC, year DESC, ST_DISTANCE(plane_location,ST_POINT(25,45)) ASC LIMIT 5',
+        () {
+      final sql = SQL
+          .select()
+          .from('aircraft')
+          .orderByIndividual({'model': true, 'year': false},
+              expressions: ["ST_DISTANCE(plane_location,ST_POINT(25,45)) ASC"])
+          .limit(5)
+          .toString();
+      expect(sql,
+          'SELECT * FROM aircraft ORDER BY model ASC, year DESC, ST_DISTANCE(plane_location,ST_POINT(25,45)) ASC LIMIT 5');
+    });
+
+    test('SELECT * FROM aircraft WHERE model = "SR22" ORDER BY model ASC', () {
+      final sql = SQL
           .select()
           .from('aircraft')
           .where('model')
@@ -44,7 +66,7 @@ void main() {
     });
 
     test('SELECT * FROM aircraft WHERE NOT model = "SR22"', () {
-      var sql = SQL
+      final sql = SQL
           .select([])
           .from('aircraft')
           .where()
@@ -57,7 +79,7 @@ void main() {
     test(
         'SELECT * FROM aircraft WHERE NOT model = "SR22" AND NOT model = "SR22T"',
         () {
-      var sql = SQL
+      final sql = SQL
           .select([])
           .from('aircraft')
           .where()
@@ -74,7 +96,7 @@ void main() {
     test(
         'SELECT * FROM aircraft WHERE model = "SR22" AND landing_weight >= 3000',
         () {
-      var sql = SQL
+      final sql = SQL
           .select()
           .from('aircraft')
           .where('model')
@@ -89,7 +111,7 @@ void main() {
     test(
         'SELECT * FROM aircraft WHERE model = "SR22" AND year > 2000 OR year <= 2020',
         () {
-      var sql = SQL
+      final sql = SQL
           .select([])
           .from('aircraft')
           .where('model')
@@ -104,7 +126,7 @@ void main() {
     });
 
     test('SELECT * FROM aircraft WHERE model IN ("SR22", "C172", "C170")', () {
-      var sql = SQL
+      final sql = SQL
           .select()
           .from('aircraft')
           .where('model')
@@ -115,7 +137,7 @@ void main() {
     });
 
     test('SELECT * FROM aircraft WHERE model IN SELECT name FROM models', () {
-      var sql = SQL
+      final sql = SQL
           .select()
           .from('aircraft')
           .where('model')
@@ -128,7 +150,7 @@ void main() {
     });
 
     test('SELECT * FROM aircraft WHERE year BETWEEN 2000 AND 2020', () {
-      var sql = SQL
+      final sql = SQL
           .select()
           .from('aircraft')
           .where('year')
@@ -199,7 +221,7 @@ void main() {
     test(
         'SELECT * FROM aircraft JOIN colors ON colors.id = aircraft.colorid AND colors.zorder = aircraft.zorder WHERE aircraft.id = 41',
         () {
-      var sql = SQL
+      final sql = SQL
           .select()
           .from('aircraft')
           .join("colors")
@@ -276,7 +298,7 @@ void main() {
 
   group('Misc', () {
     test('column reference', () {
-      var sql = SQL
+      final sql = SQL
           .select([SQLColumnReference("make", alias: "make_alias123")])
           .from('aircraft')
           .toString();
